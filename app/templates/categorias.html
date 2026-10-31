@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <!-- Formulario para Registrar Categoría -->
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h4>Nueva Categoría</h4>
+            <form action="{{ url_for('categorias.crear_categoria') }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nombre de la Categoría</label>
+                    <input type="text" name="nombre" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla para Consultar y Eliminar Categorías -->
+    <div class="col-md-8">
+        <div class="card shadow-sm p-3">
+            <h4>Lista de Categorías</h4>
+            <table class="table table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in categorias %}
+                    <tr>
+                        <td>{{ c.id }}</td>
+                        <td>{{ c.nombre }}</td>
+                        <td>
+                            <a href="{{ url_for('categorias.eliminar_categoria', id=c.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

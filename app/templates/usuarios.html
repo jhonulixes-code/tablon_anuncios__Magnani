@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <!-- Formulario para Registrar Usuario -->
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h4>Registrar Usuario</h4>
+            <form action="{{ url_for('usuarios.crear_usuario') }}" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Correo</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla para Consultar y Eliminar Usuarios -->
+    <div class="col-md-8">
+        <div class="card shadow-sm p-3">
+            <h4>Lista de Usuarios</h4>
+            <table class="table table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td>{{ u.nombre }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>
+                            <a href="{{ url_for('usuarios.eliminar_usuario', id=u.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
